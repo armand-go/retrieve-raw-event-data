@@ -103,5 +103,68 @@
         "end_time": 1659045600
       }
     }
+  },
+  {
+    "event_id": 5,
+    "collection_name": "Pass 1 jour",
+    "smart_contract": {
+      "crowdsale": "KT1h6KxCJH9EPimNm19ifBEgG9bFRgptab6h",
+      "collection": "KT1DV68CPkYBe3bRuTCET6A4NhnosX2BA8bv",
+      "multisig": "KT17HUyTxNwoMJejoqsNP8TEN7J6STgMi80L",
+      "sale_params": {
+        "is_presale": false,
+        "metadata_list": [],
+        "price_per_token": 80,
+        "max_mint_per_user": 6,
+        "sale_size": 10000,
+        "sale_currency": {
+          "xtz": null
+        },
+        "start_time": 1672527600,
+        "end_time": 1688594400
+      }
+    }
+  },
+  {
+    "event_id": 5,
+    "collection_name": "Pass 2 jours",
+    "smart_contract": {
+      "crowdsale": "KT1h6KxCJH9EPimNm19ifBEgG9bFRgptabgs",
+      "collection": "KT1DV68CPkYBe3bRuTCET6A4NhnosX2B92hdd",
+      "multisig": "KT17HUyTxNwoMJejoqsNP8TEN7J6STgMnn5",
+      "sale_params": {
+        "is_presale": false,
+        "metadata_list": [],
+        "price_per_token": 100,
+        "max_mint_per_user": 6,
+        "sale_size": 10000,
+        "sale_currency": {
+          "xtz": null
+        },
+        "start_time": 1672527600,
+        "end_time": 1688594400
+      }
+    }
+  },
+  {
+    "event_id": 5,
+    "collection_name": "Pass 3 jours",
+    "smart_contract": {
+      "crowdsale": "KT1h6KxCJH9EPimNm19ifBEgG9bFRjna7dhf",
+      "collection": "KT1DV68CPkYBe3bRuTCET6A4Nhnoslkj974g1",
+      "multisig": "KT17HUyTxNwoMJejoqsNP8TEN7J6STgjj81",
+      "sale_params": {
+        "is_presale": false,
+        "metadata_list": [],
+        "price_per_token": 120,
+        "max_mint_per_user": 6,
+        "sale_size": 10000,
+        "sale_currency": {
+          "xtz": null
+        },
+        "start_time": 1672527600,
+        "end_time": 1688594400
+      }
+    }
   }
 ]

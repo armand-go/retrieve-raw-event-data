@@ -1,4 +1,5 @@
 id,event title,event start date,event end date,name of the location hosting the event (optional),address of the location,total ticket number,maximum tickets per user,sale start date,line up (optional),event image or video url (mp4 or png or jpeg)
+5,Hellfest,01/07/2023 15:00,03/07/2023 23:59,Clisson,Clisson France,10000,6,01/01/2023,Metal Band-Rock Band,https://hellfest.com/hellfest_asset.png
 4,Coldplay World Tour,29/07/2022 20:30,30/07/2022 01:00,Stade de France,93200 Saint-Denis,10000,6,04/05/2022,,https://coldplay.com/coldplay_asset.mp4
 3,Meetup Crafting Data Science,21/07/2022 18:30,21/07/2022 22:00,,34 avenue de l'Opéra 75008,60,2,04/07/2022,,https://meetup_files.com/meetup.mp4
 2,Web3 Builders Meetup #4,19/07/2022 18:30,19/07/2022 21:30,PyratzLabs,7 rue Pablo Neruda 92300,100,2,10/07/2022,,https://meetup_files/PTZL_GLB.glb
