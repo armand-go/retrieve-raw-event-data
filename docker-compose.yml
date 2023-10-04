@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  python_app:
+    &python_app
+    build:
+      context: ./
+      dockerfile: infra/images/local/api.Dockerfile
+    volumes:
+      - .:/home/app
+    networks:
+      - billy
+    env_file: .env
+    environment:
+      - PYTHONUNBUFFERED=TRUE
+
+  technical_test_postgres:
+    container_name: technical_test_postgres
+    image: postgres:15-alpine
+    env_file: .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    networks:
+      - billy
+
+  technical_test_api:
+    &technical_test_api
+    <<: *python_app
+    container_name: technical_test_api
+    env_file: .env
+    command:
+      - "python"
+      - "api.py"
+    ports:
+      - 8000:8000
+
+volumes:
+  postgres-data: null
+networks:
+  billy:
+    name: billy
