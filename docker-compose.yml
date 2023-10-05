@@ -34,7 +34,7 @@ services:
     env_file: .env
     command:
       - "python"
-      - "api.py"
+      - "app.py"
     ports:
       - 8000:8000
 

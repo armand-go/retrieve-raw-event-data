@@ -24,7 +24,22 @@
 			"esbenp.prettier-vscode",
 			"hbenl.vscode-test-explorer",
 			"ms-python.python"
-		  ]
+		  ],
+		  "settings": {
+			"python.linting.flake8Enabled": true,
+			"python.linting.pylintEnabled": false,
+			"python.linting.enabled": true,
+			"python.formatting.provider": "black",
+			"python.testing.pytestArgs": [],
+			"editor.formatOnPaste": false,
+			"editor.formatOnSave": true,
+			"files.trimTrailingWhitespace": true,
+			"python.linting.banditEnabled": true,
+			"python.formatting.blackArgs": [
+			  "--line-length=99"
+			],
+			"files.eol": "\n"
 		}
 	  }
+	}
 }
