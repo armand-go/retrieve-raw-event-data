@@ -1,3 +1,5 @@
+from typing import List
+
 from app.domain import entities
 from app.domain.errors import ErrNotFound, ErrUnexpected
 from app.adapters import stores
@@ -16,3 +18,11 @@ class Events:
             raise ErrUnexpected()
         else:
             return event
+
+    async def list_events(self, filters: List[dict]) -> List[entities.Event]:
+        try:
+            event_list = await self.__store.list(filters)
+        except Exception:
+            raise ErrUnexpected()
+        else:
+            return event_list

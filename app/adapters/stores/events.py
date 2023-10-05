@@ -1,15 +1,44 @@
-from .transactions import Transactions
+from sqlalchemy import Column
 from sqlalchemy.sql.expression import select
 from sqlalchemy.dialects.postgresql import insert
 
-from typing import Optional
+from typing import Any, Iterable, Optional, List
 
-from app.domain import entities
 from app.domain.errors import ErrNotFound
+from .transactions import Transactions
+from app.domain import entities
 from .models import events
 
 
+def add_filters_to_query_object(query, field: Column, filt: dict):
+    value: Any
+    match str(filt["operator"]).upper():
+        case "IN":
+            value = filt["value"].split(",")
+            query = query.where(field.in_(value))
+        case "!=":
+            query = query.where(field != filt["value"])
+        case ">=":
+            query = query.where(field >= filt["value"])
+        case ">":
+            query = query.where(field > filt["value"])
+        case "<=":
+            query = query.where(field <= filt["value"])
+        case "<":
+            query = query.where(field <= filt["value"])
+        case _:
+            query = query.where(field == filt["value"])
+    return query
+
+
 class Events:
+    filter_by = {
+        "title": events.Events.title,
+        "startDatetime": events.Events.startDatetime,
+        "endDatetime": events.Events.endDatetime,
+        "saleStartDate": events.Events.saleStartDate,
+    }
+
     def __init__(self, transactions: Transactions) -> None:
         self.__transactions = transactions
 
@@ -72,5 +101,30 @@ class Events:
             if not event:
                 raise ErrNotFound("Event")
             return event._data[0].to_entity()
+        finally:
+            tx.clear()
+
+    async def list(self, filters: Iterable[dict] | None = None,) -> List[entities.Event]:
+        query = select(events.Events)
+
+        filters = filters or []
+
+        for filt in filters:
+            field = self.filter_by.get(filt["field"])
+            if not field:
+                continue
+            query = add_filters_to_query_object(query, field, filt)
+
+        tx = self.__transactions.start()
+
+        try:
+            events_list = tx.instance().execute(query).scalars()
+        except Exception as e:
+            raise e
+        else:
+            if not events:
+                return []
+
+            return [event.to_entity() for event in events_list]
         finally:
             tx.clear()
