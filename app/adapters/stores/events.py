@@ -2,7 +2,7 @@ from sqlalchemy import Column
 from sqlalchemy.sql.expression import select
 from sqlalchemy.dialects.postgresql import insert
 
-from typing import Any, Iterable, Optional, List
+from typing import Any, Iterable, List
 
 from app.domain.errors import ErrNotFound
 from .transactions import Transactions
@@ -34,40 +34,28 @@ def add_filters_to_query_object(query, field: Column, filt: dict):
 class Events:
     filter_by = {
         "title": events.Events.title,
-        "startDatetime": events.Events.startDatetime,
-        "endDatetime": events.Events.endDatetime,
-        "saleStartDate": events.Events.saleStartDate,
+        "startDatetime": events.Events.start_datetime,
+        "endDatetime": events.Events.end_datetime,
+        "saleStartDate": events.Events.sale_start_date,
     }
 
     def __init__(self, transactions: Transactions) -> None:
         self.__transactions = transactions
-
-    def event_to_db(self, event: entities.Event, exclude: Optional[dict] = None) -> dict:
-        if not exclude:
-            return event.model_dump()
-        else:
-            event_data = event.model_dump(exclude=exclude)
-
-            new_event_data = {}
-            for key in event_data.keys():
-                new_event_data[key.lower()] = event_data[key]
-
-            return new_event_data
 
     async def upsert(self, event: entities.Event, transaction: Transactions | None = None) -> None:
         tx = transaction or self.__transactions.start()
 
         query = (
             insert(events.Events)
-            .values(self.event_to_db(event))
+            .values(event.model_dump())
             .on_conflict_do_update(
-                index_elements=[events.Events.eventId],
-                set_=self.event_to_db(event, exclude={
-                    "eventId",
-                    "startDatetime",
-                    "endDatetime",
-                    "maxTicketPerUser",
-                    "totalTicketsCount",
+                index_elements=[events.Events.event_id],
+                set_=event.model_dump(exclude={
+                    "event_id",
+                    "start_datetime",
+                    "end_datetime",
+                    "max_ticket_per_user",
+                    "total_tickets_count",
                     "address"
                 }),
             )
@@ -91,7 +79,7 @@ class Events:
                     select(
                         events.Events
                     ).where(
-                        events.Events.eventId == event_id
+                        events.Events.event_id == event_id
                     )
                 )
             ).first()

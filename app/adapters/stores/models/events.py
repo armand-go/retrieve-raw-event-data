@@ -12,29 +12,29 @@ class Events(Base):
     __tablename__ = "events"
     __table_args__ = {"schema": _SCHEMA}
 
-    eventId = Column(Integer, primary_key=True, name="eventid")
+    event_id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    startDatetime = Column(DateTime, nullable=False, name="startdatetime")
-    endDatetime = Column(DateTime, nullable=False, name="enddatetime")
-    locationName = Column(String, name="locationname")
+    start_datetime = Column(DateTime, nullable=False)
+    end_datetime = Column(DateTime, nullable=False)
+    location_name = Column(String)
     address = Column(String, nullable=False)
-    totalTicketsCount = Column(Integer, nullable=False, name="totalticketscount")
-    maxTicketPerUser = Column(Integer, nullable=False, name="maxticketperuser")
-    saleStartDate = Column(DateTime, nullable=False, name="salestartdate")
-    lineUp = Column(ARRAY(String), name="lineup")
-    assetUrl = Column(String, name="asseturl")
+    total_tickets_count = Column(Integer, nullable=False)
+    max_ticket_per_user = Column(Integer, nullable=False)
+    sale_start_date = Column(DateTime, nullable=False)
+    line_up = Column(ARRAY(String))
+    asset_url = Column(String)
 
     def to_entity(self) -> entities.Event:
         return entities.Event(
-            eventId=self.eventId,
+            event_id=self.event_id,
             title=self.title,
-            startDatetime=self.startDatetime,
-            endDatetime=self.endDatetime,
-            locationName=self.locationName,
+            start_datetime=self.start_datetime,
+            end_datetime=self.end_datetime,
+            location_name=self.location_name,
             address=self.address,
-            totalTicketsCount=self.totalTicketsCount,
-            maxTicketPerUser=self.maxTicketPerUser,
-            saleStartDate=self.saleStartDate,
-            lineUp=self.lineUp,
-            assetUrl=self.assetUrl
+            total_tickets_count=self.total_tickets_count,
+            max_ticket_per_user=self.max_ticket_per_user,
+            sale_start_date=self.sale_start_date,
+            line_up=self.line_up,
+            asset_url=self.asset_url
         )

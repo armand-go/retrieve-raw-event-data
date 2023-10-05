@@ -3,6 +3,8 @@ from typing import Optional, List
 from pydantic import BaseModel
 from datetime import datetime
 
+from app.domain import entities
+
 
 class Event(BaseModel):
     eventId: int
@@ -46,3 +48,19 @@ class Event(BaseModel):
                 )
 
             return res
+
+    @staticmethod
+    def from_entity(event: entities.Event) -> "Event":
+        return Event(
+            eventId=event.event_id,
+            title=event.title,
+            startDatetime=event.start_datetime,
+            endDatetime=event.end_datetime,
+            locationName=event.location_name,
+            address=event.address,
+            totalTicketsCount=event.total_tickets_count,
+            maxTicketPerUser=event.max_ticket_per_user,
+            saleStartDate=event.sale_start_date,
+            lineUp=event.line_up,
+            assetUrl=event.asset_url
+        )

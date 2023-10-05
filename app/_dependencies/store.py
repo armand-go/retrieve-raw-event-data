@@ -14,3 +14,4 @@ class Store:
         self.transactions = stores.Transactions(engine=self.core.postgres)
 
         self.events = stores.Events(transactions=self.transactions)
+        self.smart_contracts = stores.SmartContracts(transactions=self.transactions)

@@ -1,15 +1,15 @@
 SET ROLE postgres;
 CREATE SCHEMA data;
 CREATE TABLE data.events (
-    eventId INT PRIMARY KEY,
+    event_id INT PRIMARY KEY,
     title VARCHAR NOT NULL,
-    startDatetime TIMESTAMP NOT NULL,
-    endDatetime TIMESTAMP NOT NULL,
-    locationName VARCHAR,
+    start_datetime TIMESTAMP NOT NULL,
+    end_datetime TIMESTAMP NOT NULL,
+    location_name VARCHAR,
     address VARCHAR NOT NULL,
-    totalTicketsCount INT NOT NULL,
-    maxTicketPerUser INT NOT NULL,
-    saleStartDate TIMESTAMP NOT NULL,
-    lineUp VARCHAR[],
-    assetUrl VARCHAR
+    total_tickets_count INT NOT NULL,
+    max_ticket_per_user INT NOT NULL,
+    sale_start_date TIMESTAMP NOT NULL,
+    line_up VARCHAR[],
+    asset_url VARCHAR
 );

@@ -5,14 +5,14 @@ from datetime import datetime
 
 
 class Event(BaseModel):
-    eventId: int
+    event_id: int
     title: str
-    startDatetime: datetime
-    endDatetime: datetime
-    locationName: Optional[str]
+    start_datetime: datetime
+    end_datetime: datetime
+    location_name: Optional[str]
     address: str
-    totalTicketsCount: int
-    maxTicketPerUser: int
-    saleStartDate: datetime
-    lineUp: Optional[List[str]]
-    assetUrl: Optional[str]
+    total_tickets_count: int
+    max_ticket_per_user: int
+    sale_start_date: datetime
+    line_up: Optional[List[str]]
+    asset_url: Optional[str]
