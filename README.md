@@ -12,6 +12,8 @@ Data models are managed with **SQLAlchemy**, while the various data migrations a
 
 3 docker containers were used for this test: the first for the Python development environment, a second for the PostgreSQL database, the third launching the API. Once launched, the API can be accessed at http://localhost:8000
 
+Before running the container, it's mandatory to create a `.env` file. You can just go ahead and copy paste the values from the `.env.sample` file.
+
 #### VSCode dev container
 
 If you use VSCode, it is best to run the project in container using the DevContainer feature. It will use a standardized environements and configuration ensuring linters are active.
