@@ -19,6 +19,11 @@ class Event(BaseModel):
     lineUp: Optional[List[str]]
     assetUrl: Optional[str]
 
+    class Update(BaseModel):
+        title: Optional[str] = None
+        lineUp: Optional[List[str]] = None
+        assetUrl: Optional[str] = None
+
     class Filters(BaseModel):
         title: Optional[str] = None
         startDatetime: Optional[str] = None

@@ -14,7 +14,7 @@ class SmartContract(Base):
 
     event_id = Column(Integer, primary_key=True)
     collection_name = Column(String, nullable=False)
-    crowdsale = Column(String, nullable=False)
+    crowdsale = Column(String, nullable=False, unique=True)
     collection_address = Column(String, nullable=False)
     multisig = Column(String, nullable=False)
     is_presale = Column(Boolean, nullable=False)

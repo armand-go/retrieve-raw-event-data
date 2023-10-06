@@ -25,6 +25,12 @@ class Events:
         return payloads.EventWithSmartContract.from_entity(event, smart_contracts)
 
     @staticmethod
+    @ep.put("/{id}", response_model=payloads.Event)
+    async def update_event(id: str, modify: payloads.Event.Update):
+        event = await Events.__eventsUC.update_event(id, modify.model_dump(exclude_unset=True))
+        return payloads.Event.from_entity(event)
+
+    @staticmethod
     @ep.get("/{id}", response_model=payloads.Event)
     async def retrieve_single_event(id: str):
         event = await Events.__eventsUC.retrieve_single_event(id)

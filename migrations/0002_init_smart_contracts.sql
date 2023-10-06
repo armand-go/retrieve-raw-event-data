@@ -3,7 +3,7 @@ SET ROLE postgres;
 CREATE TABLE data.smart_contract (
     event_id INT REFERENCES data.events(event_id) ON DELETE CASCADE,
     collection_name VARCHAR NOT NULL,
-    crowdsale VARCHAR NOT NULL,
+    crowdsale VARCHAR NOT NULL UNIQUE,
     collection_address VARCHAR NOT NULL,
     multisig VARCHAR NOT NULL,
     is_presale BOOLEAN NOT NULL,

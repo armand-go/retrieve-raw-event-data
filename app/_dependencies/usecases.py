@@ -17,3 +17,6 @@ class Usecases:
             store=self.store.events,
             smartContractStore=self.store.smart_contracts
         )
+        self.smart_contracts = usecases.SmartContracts(
+            store=self.store.smart_contracts
+        )

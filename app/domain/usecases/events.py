@@ -1,5 +1,6 @@
-from typing import List
+from typing import Any, Dict, List
 from asyncio import TaskGroup
+import re
 
 from app.domain import entities
 from app.domain.errors import ErrNotFound, ErrUnexpected
@@ -16,6 +17,25 @@ class Events:
             event = await self.__store.get(event_id)
         except ErrNotFound as e:
             raise e
+        except Exception:
+            raise ErrUnexpected()
+        else:
+            return event
+
+    async def update_event(self, event_id: str, new_data: Dict[str, Any]):
+        try:
+            event = await self.__store.get(event_id)
+        except ErrNotFound as e:
+            raise e
+        except Exception:
+            raise ErrUnexpected()
+
+        for key, val in new_data.items():
+            key = re.sub(r'(?<!^)(?=[A-Z])', '_', key).lower()
+            setattr(event, key, val)
+
+        try:
+            await self.__store.upsert(event)
         except Exception:
             raise ErrUnexpected()
         else:

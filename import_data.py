@@ -413,7 +413,7 @@ class Import:
                     if detail:
                         details += detail
                     elif smart_contract:
-                        tg.create_task(self.smartContractStore.insert(smart_contract, tx))
+                        tg.create_task(self.smartContractStore.upsert(smart_contract, tx))
         except Exception as e:
             tx.rollback()
             raise e

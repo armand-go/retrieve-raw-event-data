@@ -50,13 +50,10 @@ class Events:
             .values(event.model_dump())
             .on_conflict_do_update(
                 index_elements=[events.Events.event_id],
-                set_=event.model_dump(exclude={
-                    "event_id",
-                    "start_datetime",
-                    "end_datetime",
-                    "max_ticket_per_user",
-                    "total_tickets_count",
-                    "address"
+                set_=event.model_dump(include={
+                    "title",
+                    "line_up",
+                    "asset_url"
                 }),
             )
         )

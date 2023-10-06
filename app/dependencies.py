@@ -14,5 +14,6 @@ class BillyAPI:
     endpoints = Endpoints(usecases=usecases)
 
     router = API(
-        endpoints.events
+        endpoints.events,
+        endpoints.smart_contracts
     )
