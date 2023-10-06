@@ -19,6 +19,12 @@ class Events:
         return [payloads.Event.from_entity(event) for event in event_list]
 
     @staticmethod
+    @ep.get("/withTicketsCollection/{id}", response_model=payloads.EventWithSmartContract)
+    async def retrieve_event_with_ticket_collection(id: str):
+        event, smart_contracts = await Events.__eventsUC.retrieve_event_with_ticket_collection(id)
+        return payloads.EventWithSmartContract.from_entity(event, smart_contracts)
+
+    @staticmethod
     @ep.get("/{id}", response_model=payloads.Event)
     async def retrieve_single_event(id: str):
         event = await Events.__eventsUC.retrieve_single_event(id)

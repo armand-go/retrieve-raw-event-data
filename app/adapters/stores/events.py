@@ -10,7 +10,7 @@ from app.domain import entities
 from .models import events
 
 
-def add_filters_to_query_object(query, field: Column, filt: dict):
+def add_filters_to_query(query, field: Column, filt: dict):
     value: Any
     match str(filt["operator"]).upper():
         case "IN":
@@ -101,7 +101,7 @@ class Events:
             field = self.filter_by.get(filt["field"])
             if not field:
                 continue
-            query = add_filters_to_query_object(query, field, filt)
+            query = add_filters_to_query(query, field, filt)
 
         tx = self.__transactions.start()
 

@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Dict
 
 from pydantic import BaseModel
 from datetime import datetime
@@ -63,4 +63,44 @@ class Event(BaseModel):
             saleStartDate=event.sale_start_date,
             lineUp=event.line_up,
             assetUrl=event.asset_url
+        )
+
+
+class EventWithSmartContract(BaseModel):
+    eventId: int
+    title: str
+    startDatetime: datetime
+    endDatetime: datetime
+    address: str
+    locationName: Optional[str]
+    totalTicketsCount: int
+    assetUrl: Optional[str]
+    lineUp: Optional[List[str]]
+    ticketCollections: List[Dict]
+
+    @staticmethod
+    def from_entity(
+        event: entities.Event,
+        smart_contracts: List[entities.SmartContract]
+    ) -> "EventWithSmartContract":
+        return EventWithSmartContract(
+            eventId=event.event_id,
+            title=event.title,
+            startDatetime=event.start_datetime,
+            endDatetime=event.end_datetime,
+            address=event.address,
+            locationName=event.location_name,
+            totalTicketsCount=event.total_tickets_count,
+            assetUrl=event.asset_url,
+            lineUp=event.line_up,
+            ticketCollections=[
+                {
+                    "collectionName": sc.collection_name,
+                    "scAddress": sc.crowdsale,
+                    "collectionAddress": sc.collection_address,
+                    "pricePerToken": sc.price_per_token,
+                    "maxMintPerUser": sc.max_mint_per_user,
+                    "saleSize": sc.sale_size
+                } for sc in smart_contracts
+            ]
         )

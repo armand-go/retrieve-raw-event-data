@@ -1,10 +1,11 @@
 from sqlalchemy.sql.expression import select
 from sqlalchemy.dialects.postgresql import insert
 
-from app.domain.errors import ErrNotFound
+from typing import List
+
 from .transactions import Transactions
-from app.domain import entities
 from .models import smart_contracts
+from app.domain import entities
 
 
 class SmartContracts:
@@ -32,7 +33,7 @@ class SmartContracts:
         if not transaction:
             tx.commit()
 
-    async def get(self, event_id: str) -> entities.SmartContract:
+    async def get_by_event_id(self, event_id: str) -> List[entities.SmartContract]:
         tx = self.__transactions.start()
 
         try:
@@ -44,12 +45,10 @@ class SmartContracts:
                         smart_contracts.SmartContract.event_id == event_id
                     )
                 )
-            ).first()
+            ).scalars()
         except Exception as e:
             raise e
         else:
-            if not smart_contract:
-                raise ErrNotFound("SmartContract")
-            return smart_contract._data[0].to_entity()
+            return [sm.to_entity() for sm in smart_contract]
         finally:
             tx.clear()

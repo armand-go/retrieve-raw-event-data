@@ -9,7 +9,7 @@ class BillyAPI:
 
     core = Core(config=config)
     store = Store(core=core)
-    usecases = Usecases(core=core, store=store)
+    usecases = Usecases(store=store)
 
     endpoints = Endpoints(usecases=usecases)
 

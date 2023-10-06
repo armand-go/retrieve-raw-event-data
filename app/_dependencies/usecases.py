@@ -10,8 +10,10 @@ class Usecases:
 
     events: usecases.Events
 
-    def __init__(self, core: Core, store: Store) -> None:
-        self.core = core
+    def __init__(self, store: Store) -> None:
         self.store = store
 
-        self.events = usecases.Events(store=self.store.events)
+        self.events = usecases.Events(
+            store=self.store.events,
+            smartContractStore=self.store.smart_contracts
+        )
