@@ -25,7 +25,6 @@ class Event(BaseModel):
         assetUrl: Optional[str] = None
 
     class Filters(BaseModel):
-        title: Optional[str] = None
         startDatetime: Optional[str] = None
         endDatetime: Optional[str] = None
         saleStartDate: Optional[str] = None
@@ -33,8 +32,6 @@ class Event(BaseModel):
 
         def to_filters(self) -> List[dict]:
             res: List[dict] = []
-            if self.title:
-                res.append({"field": "title", "operator": "==", "value": self.title})
 
             operator = self.operator or ">="
             if self.startDatetime:

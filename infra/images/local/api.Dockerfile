@@ -14,3 +14,4 @@ RUN pip install --upgrade pip \
 
 # Install application into container
 COPY . /home/app
+COPY .env.sample /home/app/.env

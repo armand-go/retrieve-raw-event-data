@@ -33,7 +33,6 @@ def add_filters_to_query(query, field: Column, filt: dict):
 
 class Events:
     filter_by = {
-        "title": events.Events.title,
         "startDatetime": events.Events.start_datetime,
         "endDatetime": events.Events.end_datetime,
         "saleStartDate": events.Events.sale_start_date,
