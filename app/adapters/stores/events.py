@@ -60,7 +60,8 @@ class Events:
         try:
             tx.instance().execute(query)
         except Exception as e:
-            tx.rollback()
+            if not transaction:
+                tx.rollback()
             raise e
 
         if not transaction:
